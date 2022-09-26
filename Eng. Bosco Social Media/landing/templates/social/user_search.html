@@ -1,0 +1,70 @@
+{%extends 'landing/base.html' %}
+{%block content%}
+<button class="bg-primary ">
+    <a class="text-black post-link" href="{%url 'post_list' %}">
+        Back 
+        <i class="bi bi-reply-fill"></i>
+    </a>
+</button>
+<div class="container">
+    {% for profile in profile_list%}
+        <div class="row justify-content-center mt-3 scrol">
+            <div class="col-md-5 col-sm-12 border-bottom border-top border-success border-2 bg-light">
+                {%if profile in profile_list is none%}
+                        no results
+                {%else%}
+                <div>
+                    <a href="{%url 'user_profile' profile.pk %}">
+                        <img class="rounded-circle post-img" height="30" width="30" src="{{ profile.profile_picture.url }}" alt="">
+                    </a>
+                    <p class="post-text">
+                        <a class="post-link" href="{%url 'user_profile' profile.pk%}">
+                            <strong>{{profile.user}}</strong>
+                        </a> 
+                        {%if profile.location%}
+                        <p>{{profile.location}}</p>
+                        {%endif%}
+                        <p>Followers: {{ profile.followers.all.count }}</p>
+                    </p>
+                </div>
+                {%endif%}
+            </div>
+        </div>
+      
+    {%endfor%}
+    {%for post in post_list%}
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom border-top border-success border-2 bg-light">
+            <div>
+                <a href="{%url 'user_profile' post.author.profile.pk %}">
+                    <img class="rounded-circle post-img" height="30" width="30" src="{{ post.author.profile.profile_picture.url }}" alt="">
+                </a>
+                <p class="post-text">
+                    <a class="post-link" href="{%url 'user_profile' post.author.profile.pk%}">
+                        <strong>{{post.author}}</strong>
+                    </a>  
+                    {{post.date_time}}
+                    {%if request.user == post.author%}
+                        <a href="{%url 'post_update' post.pk%}"><i style="color: black;" class="bi bi-pencil-square"></i></a>
+                        <a href="{%url 'post_delete' post.pk%}"><i style="color: red;" class="bi bi-trash"></i></a>
+                    {%endif%}
+                </p>
+            </div>
+            <div class="position-relative">
+                <p>{{post.body}}</p>
+
+                {%if post.choose_picture%}
+                <img src="{{post.choose_picture.url}}" alt="Post" height="100" width="auto" class="post-image">
+                {%else%}
+                    
+                {%endif%}
+                <a href="{%url 'post_detail' post.pk%}" class="stretched-link"></a>
+            </div>
+        
+        </div> 
+    </div>
+    
+    {%endfor%}
+  
+</div>
+{%endblock content%}

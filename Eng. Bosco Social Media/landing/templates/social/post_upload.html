@@ -1,0 +1,18 @@
+{% extends 'landing/base.html'%}
+{%load crispy_forms_tags%}
+{%block content%}
+<h2 class="page_title">Post Upload</h2>
+<form class="login" action="" method="POST" enctype="multipart/form-data" >
+    {%csrf_token%}
+    <div class="row justify-content-center mt-3 mb-5">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            {{form.as_p}}
+            <div class="d-grid gap-2"> 
+                <button class="btn btn-success mt-3" type="submit">Post</button>
+            </div>
+            <br>
+            <a class="btn btn-info ml- " href="{%url 'post_list'%}">Quit Upload</a>
+        </div>
+    </div>
+</form>
+{%endblock content%}

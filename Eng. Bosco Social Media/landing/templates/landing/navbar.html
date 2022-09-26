@@ -1,0 +1,142 @@
+{% load custom_tags %}
+
+<div class=" sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <img class="nav-item" src="static/photos/FB_IMG_1642141492194.jpg" alt="" height="60" width="auto">
+      <a class="navbar-brand" href="{%url 'index'%}">Eng. BMK Networks</a>
+     
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li> -->
+        </ul>
+        <div>
+          
+          
+            {% if user.is_authenticated %}
+              
+            {% else %}
+            <a class="btn btn-info"  href="{% url 'account_login' %}">Sign In</a>
+            <a class="btn btn-info"  href="{% url 'account_signup' %}">Sign Up</a>
+            {% endif %}
+          
+        </div>
+        {%if user.is_authenticated%}
+
+    <!-- <div>
+        <a class="btn btn-info" href="{% url 'account_email' %}">Change E-mail</a>
+    </div>
+    <div>
+      <a class="btn btn-info" href="{% url 'account_reset_password' %}">Change Password</a>
+    </div> -->
+    <!-- <button class="bg-success sticky-top">
+      <a class="text-white post-link " href="{%url 'index'%}">
+        Home
+        <i class="bi bi-house-fill"></i>
+      </a>
+    </button> -->
+    <div class="sticky">
+      <strong>You logged in on {{user.last_login}}</strong>
+    </div>
+      <div class="nav-item inbox-icon-container ">
+        <a href="{% url 'post_list' %}" class="btn btn-dark mr-2"><i class="bi bi-house-fill"></i> Home</a>
+      </div>
+        <div class="nav-item inbox-icon-container">
+          <a href="{% url 'inbox' %}" class="inbox-icon"><i class="bi bi-envelope-fill"></i></a>
+        </div>
+        <div class="nav-item inbox-icon-container">
+          {% show_notifications %}
+        </div>
+
+
+
+        <form class="d-flex" method="get" action="{%url 'profile_search' %}">
+          <div class="input-group inbox-icon-container">
+              <span class="input-group-text" id="basic-addon1">@</span>
+              <input type="text" class="form-control" placeholder="Enter Username" aria-label="Username" aria-describedby="basic-addon1" name="query" value="{{ request.GET.query }}">
+              <button class="search-button" type="submit"><i class="bi bi-search"></i></button>
+          </div>
+      </form>
+
+     
+
+        <div class="nav-item">
+      
+          <div class="dropdown-account">
+            <button onclick="myFunction()" class="dropbtn-account dropdown-toggle " > <i class="bi bi-person-fill"></i> <strong>Account</strong></button>
+            <div id="myDropdown" class="dropdown-content-account">
+              <a class="btn btn-info" href="{% url 'account_email' %}">Change E-mail</a>
+              <a class="btn btn-info" href="{% url 'account_reset_password' %}">Change Password</a>
+              <a class="btn btn-dark text-light" href="{% url 'account_logout' %}">Sign Out</a>
+                       
+                <a class="btn btn-info" href="{%url 'user_profile' request.user.profile.pk %}">
+                   <strong>{{request.user}}'s </strong>
+                  <i class="bi bi-person-fill"></i>Profile
+                  
+                </a>
+                
+                <a class="btn btn-danger text-light" href="{% url 'account_delete' request.user.profile.pk %}">Delete Account</a>
+
+            </div>
+           
+          </div>
+        </div>
+<!-- <div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    Action
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="{% url 'account_logout' %}">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Separated link</a></li>
+  </ul>
+</div> -->
+        <div class="nav-item dropdown sticky-top">
+          <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-expanded="false" ></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="dropdown-item">People</a></li>
+            <li><a href="#" class="dropdown-item">People</a></li>
+          </ul>
+        </div>
+        
+        {%endif%}
+        <img src="static/photos/FB_IMG_1642141492194.jpg" alt="" height="60" width="auto">
+      </div>
+    </div>
+    <script src="static/popper.min.js" type="text/javascript"></script>
+  </nav>
+  {%if user.is_authenticated%}
+  <!-- <a class="text-black post-link sticky" href="{%url 'user_profile' request.user.profile.pk %}">
+    <strong>{{request.user}}</strong>
+    <i class="bi bi-person-fill"></i>
+    
+  </a> -->
+
+  {%endif%}
+  <!-- <strong><div class="name bg-light">Enginneer BOSCO KAVISU</div></strong> -->
+
+</div>

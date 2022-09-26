@@ -1,0 +1,29 @@
+{% extends 'landing/base.html'%}
+{%load crispy_forms_tags%}
+
+{%block content%}
+
+<a href="{%url 'post_upload'%}">Add Post</a>
+<div class="container">
+    <form action="">
+        {%csrf_token%} 
+        {{form.as_p}}
+    </form>
+    
+    {%for post in post_list%}
+    
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <a href="{%url 'his_detail' post.pk%}" class="text-success">View Post Detail</a>
+            <p><strong>{{post.author}}</strong> {{post.created_on}}</p>
+            <p>{{post.body}}</p>
+            {%if post.choose_picture%}
+            <img src="{{post.choose_picture.url}}" alt="Post" height="100" width="auto">
+            {%else%}
+                
+            {%endif%}
+        </div>
+    </div>
+    {%endfor%}
+</div>
+{%endblock content%}

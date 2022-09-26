@@ -1,0 +1,14 @@
+{% extends 'landing/base.html'%}
+{% block content %}
+<div class="row justify-content-center mt-3 ">
+    <div class="col-md-5 col-sm-12 border-bottom border-success border-5 bg-light"> 
+        <h1>Delete Message</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete "{{ messagemodel.body }}"? This cannot be undone.</p>
+            <button class="btn btn-danger ml- " type="submit">Confirm</button>
+            <a class="btn btn-info ml- " href="#">Quit Delete</a>
+        </form>
+    </div>
+</div>
+{% endblock content %}

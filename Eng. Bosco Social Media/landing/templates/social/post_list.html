@@ -1,0 +1,145 @@
+{% extends 'landing/base.html'%}
+{%load crispy_forms_tags%}
+
+{%block content%}
+<div class="row justify-content-center mt-3 mb-5">
+    <div class="col-md-5 col-sm-12 border-bottom">
+        <div class="d-grid gap-2"> 
+            <button class="btn btn-dark" ><a class="post-link glow-add mt-3 " href="{%url 'post_upload'%}">Add Post</a></button>
+        </div>
+    </div>
+</div>
+<div class="container"> 
+    
+    {%for post in post_list%}
+    <div class="row justify-content-center mt-3 ">
+        <div class="col-md-10 col-sm-12 border-bottom border-success border-5 bg-light">  
+           {% if post.shared_user %}
+           <strong>{{post.shared_user}} shared {{post.author}}'s Post</strong>
+           <div>
+            <a href="{%url 'user_profile' post.shared_user.profile.pk %}">
+                <img class="rounded-circle post-img" height="30" width="30" src="{{ post.shared_user.profile.profile_picture.url }}" alt="">
+            </a>
+            <p class="post-text">
+                <a class="post-link" href="{%url 'user_profile' post.shared_user.profile.pk%}">
+                    <strong>{{post.shared_user}}</strong>
+                </a>  
+                Shared a Post on
+                {{post.shared_on}}
+                {%if request.user == post.shared_user%}
+                    <a href="{%url 'post_update' post.pk%}"><i style="color: black;" class="bi bi-pencil-square"></i></a>
+                    <a href="{%url 'post_delete' post.pk%}"><i style="color: red;" class="bi bi-trash"></i></a>
+                {%endif%}
+            </p>
+            </div>
+        <div class="position-relative">
+            <p>{{post.shared_body}}</p>
+        
+            <a href="{%url 'post_detail' post.pk%}" class="stretched-link"></a>
+        </div>
+
+        <div class="row  card border-success" style="margin-left: 3rem;">
+            <div class="card-header ">
+                <a href="{%url 'user_profile' post.author.profile.pk %}">
+                    <img class="rounded-circle post-img" height="30" width="30" src="{{ post.author.profile.profile_picture.url }}" alt="">
+                </a>
+                <p class="post-text">
+                    <a class="post-link" href="{%url 'user_profile' post.author.profile.pk%}">
+                        <strong>{{post.author}}</strong>
+                    </a>  
+                    {{post.date_time}}
+                    {%if request.user == post.author%}
+                        <a href="{%url 'post_update' post.pk%}"><i style="color: black;" class="bi bi-pencil-square"></i></a>
+                        <a href="{%url 'post_delete' post.pk%}"><i style="color: red;" class="bi bi-trash"></i></a>
+                    {%endif%}
+                </p>
+            </div>
+            
+                    <div class="position-relative">
+                        <p>{{post.body}}</p>
+                        {%if post.post_image %}
+                            
+                                <img src="{{ post.post_image.url }}" alt="" class="post-image">
+                            
+                        {%endif%}
+                        <a href="{%url 'post_detail' post.pk%}" class="stretched-link"></a>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <form method="post" action="{%url 'add_like' post.pk%}">
+                            {%csrf_token%}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button style="background-color: transparent; border:none; box-shadow:none; " type="submit">
+                                <i class="bi bi-hand-thumbs-up"></i> <span>{{ post.likes.all.count}}</span>
+                            </button>
+                        </form>
+                        <form method="post" action="{%url 'add_dislike' post.pk%}">
+                            {%csrf_token%}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button style="background-color: transparent; border:none; box-shadow:none; " type="submit">
+                                <i class="bi bi-hand-thumbs-down"></i> <span>{{ post.dislikes.all.count}}</span>
+                            </button>
+                        </form>
+                        
+                        <a class="post-link" href="{%url 'post_detail' post.pk%}"> <i class="bi bi-chat text-dark"></i> </a>
+                        <a href="{% url 'post_detail' post.pk%}">See Original Post</a>
+                    </div> 
+                </div>  
+            {% else %}
+            <div>
+                <a href="{%url 'user_profile' post.author.profile.pk %}">
+                    <img class="rounded-circle post-img" height="30" width="30" src="{{ post.author.profile.profile_picture.url }}" alt="">
+                </a>
+                <p class="post-text">
+                    <a class="post-link" href="{%url 'user_profile' post.author.profile.pk%}">
+                        <strong>{{post.author}}</strong>
+                    </a>  
+                    {{post.date_time}}
+                    {%if request.user == post.author%}
+                        <a href="{%url 'post_update' post.pk%}"><i style="color: black;" class="bi bi-pencil-square"></i></a>
+                        <a href="{%url 'post_delete' post.pk%}"><i style="color: red;" class="bi bi-trash"></i></a>
+                    {%endif%}
+                </p>
+            </div>
+            <div class="position-relative">
+                
+                <p>{{post.body}}</p>
+
+                {%if post.post_image %}
+                        <img src="{{ post.post_image.url }}" alt="" class="post-image">
+                {%endif%}
+                <a href="{%url 'post_detail' post.pk%}" class="stretched-link"></a>
+            </div>
+            <div class="d-flex flex-row">
+                <form method="post" action="{%url 'add_like' post.pk%}">
+                    {%csrf_token%}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button style="background-color: transparent; border:none; box-shadow:none; " type="submit">
+                        <i class="bi bi-hand-thumbs-up"></i> <span>{{ post.likes.all.count}}</span>
+                    </button>
+                </form>
+                <form method="post" action="{%url 'add_dislike' post.pk%}">
+                    {%csrf_token%}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button style="background-color: transparent; border:none; box-shadow:none; " type="submit">
+                        <i class="bi bi-hand-thumbs-down"></i> <span>{{ post.dislikes.all.count}}</span>
+                    </button>
+                </form>
+                
+                <a class="post-link" href="{%url 'post_detail' post.pk%}"> <i class="bi bi-chat text-dark"></i> </a>
+                <p>{{comment.comment.all.count}}</p>
+                <span onclick="shareToggle('{{ post.pk }}')"> <i class="bi bi-share text-dark share-btn"></i></span>
+            </div>
+            <form method="post" action="{% url 'share_post' post.pk %}" class="d-none" id="{{ post.pk }}">
+                {%csrf_token%}
+                {{shareform.as_p}}
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success mt-3">Share {{post.author}}'s Post</button>
+                </div>
+            </form>
+            {%endif%}
+        </div> 
+    </div>
+    
+    {%endfor%}
+</div>
+{%endblock content%}

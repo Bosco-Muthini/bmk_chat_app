@@ -1,0 +1,10 @@
+{% extends 'landing/base.html'%}
+{% block content %}
+<h1>Delete Comment</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to comment "{{ comment.comment }}"?</p>
+    <button class="btn btn-danger ml- " type="submit">Confirm</button>
+</form>
+
+{% endblock content %}

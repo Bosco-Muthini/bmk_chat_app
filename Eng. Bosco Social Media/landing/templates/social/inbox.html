@@ -1,0 +1,33 @@
+{% extends 'landing/base.html' %}
+
+{% block content %}
+<div class="container text-center bg-success">
+     <strong class=""><h2>Chats</h2> </strong>
+
+    <div class="row">
+        <div class="col-md-12 p-5">
+            <form method="get" action="{% url 'create_thread' %}">
+                <button class="btn btn-light p-3" type="submit">Start Conversation...</button>
+            </form>
+        </div>
+    </div>
+    {% for thread in threads.all %}
+        <div class="row mb-3">
+            <a href="{%url 'thread_delete' thread.pk%}"><i style="color: red; float: left;" class="bi bi-trash bg-light"></i></a>
+            <div class="card col-md-12 p-5 shadow-sm">
+                {% if thread.receiver == request.user%}
+                <h5><img class="rounded-circle post-img" height="50" width="auto" src="{{ thread.user.profile.profile_picture.url }}" alt="">**{{thread.user}} **{{thread.receiver}}**</h5>
+                {%else%}
+                <h5><img class="rounded-circle post-img" height="50" width="auto" src="{{ thread.receiver.profile.profile_picture.url }}" alt="">**{{thread.receiver}} ** {{thread.user}}**</h5>
+                {%endif%}
+                <a class="stretched-link" href="{% url 'thread' thread.pk %}"></a>
+            </div>
+        </div>
+    {%endfor%}
+</div>
+
+{% endblock content %}
+
+
+
+

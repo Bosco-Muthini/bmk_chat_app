@@ -1,0 +1,79 @@
+{%extends 'landing/base.html' %}
+
+{% block content %}
+<a href="{% url 'inbox' %}" class="btn btn-light">Back To Chats</a>
+<div class="container bg-info text-center">
+    
+    <div class="row">
+        <div class="card col-md-12 mt-5 p-3 shadow-sm">
+            {% if thread.receiver == request.user %}
+
+            <a class="post-link" href="{% url 'user_profile' thread.user.profile.pk %}"><img src="{{ thread.user.profile.profile_picture.url }}" class="rounded-circle post-img" height="30" width="30"  alt=""></a>
+            <a class="post-link"  href="{% url 'user_profile' thread.user.profile.pk %}"><h5>{{ thread.user }}</h5></a>
+            {%else%}
+            <a class="post-link" href="{% url 'user_profile' thread.receiver.profile.pk %}"><img src="{{ thread.receiver.profile.profile_picture.url }}" class="rounded-circle post-img" height="30" width="30"  alt=""></a>
+            <a class="post-link" href="{% url 'user_profile' thread.receiver.profile.pk %}"><h5>{{ thread.receiver }}</h5></a>
+            
+            {%endif%}
+        </div>
+    </div>
+    {% if message_list.all.count == 0 %}
+    <div class="row my-5">
+        <div class="col-md-12">
+            <p class="empty-test">No Messages</p>
+        </div>
+    </div>
+    {%endif%}
+
+    {% for message in message_list %}
+        <div class="row justify-content-center ">
+            
+                {% if message.sender_user == request.user %}
+                    <div class="col-md-12 my-1">
+                       
+                        <div class="sent-message my-3">
+                            <a href="{%url 'message_delete' message.pk%}"><i style="color: red; float: left;" class="bi bi-trash"></i></a>
+                            {% if message.image %}
+                            <a href="{{message.image.url}}" download="message-image">
+                            <div class="message-receiver-container ms-auto">
+                                <img class="message-image" src="{{message.image.url}}" alt="">
+                            </div>
+                            </a>
+                            {%endif%}
+                            <p>{{message.body}}</p>
+                            <div >{{message.date}}</div>
+                        </div>
+                    </div>
+                {% elif message.receiver_user == request.user %}
+                    <div class="col-md-12">
+                        <div class="received-message my-3">
+                            <a href="{%url 'message_delete' message.pk%}"><i style="color: red; float: right;" class="bi bi-trash"></i></a>
+                            {% if message.image %}
+                            <a href="{{message.image.url}}" download="message-image">
+                            <div class="message-receiver-container ms-auto">
+                                <img class="message-image" src="{{message.image.url}}" alt="">
+                            </div>
+                            </a>
+                            {%endif%} 
+                            <p>{{ message.body}}</p>
+                            <div>{{message.date}}</div>
+                        </div>
+                    </div>
+                {%endif%}
+            
+        </div>
+    {%endfor%}
+
+    <div class="row">
+        <div class="card col-md-12 p-3 shadow-sm">
+            <form method="post" action="{% url 'create_message' thread.pk %}" enctype="multipart/form-data">
+                {%csrf_token%}
+                {{form.as_p}}
+                <div class="d-grid gap-2 mt-3">
+                    <button class="btn btn-light" type="submit">Send Message <i class="bi bi-send"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content%}

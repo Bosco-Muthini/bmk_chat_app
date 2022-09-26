@@ -1,0 +1,31 @@
+{%extends 'landing/base.html' %}
+{%block content%}
+
+<button class="bg-primary ">
+    <a class="post-link text-black" href="{%url 'user_profile' profile.pk %}">
+        Back 
+        <i class="bi bi-reply-fill"></i>
+    </a>
+</button>
+<div class="row justify-content-center mt-3 ">
+    <div class="col-md-5 col-sm-12 border-bottom border-success border-5 bg-light">  
+            <div class="row justify-content-center ">
+                <div class="col-md-7 col-sm-12">
+                    {%if profile.name%}
+                    <h3>Followers for {{profile.name}} </h3>
+                    {%else%}
+                    <h3>Followers for {{profile.user.username}} </h3>
+                    {%endif%}
+                </div>
+            </div>
+                {% for follower in followers%}
+                    <div class="row justify-content-center ">
+                        <div class="col-md-5 col-sm-12 position-relative my-3 bg-success">
+                            <a href="{%url 'user_profile' follower.profile.pk%}"><img class="rounded-circle post-img" height="60" width="60" src="{{follower.profile.profile_picture.url}}" alt=""></a>
+                            <a class="post-link" href="{%url 'user_profile' follower.profile.pk%}" class="mt-3"><h5 class="text-light">{{follower.username}}</h5></a>
+                        </div>
+                    </div>
+                {%endfor%}
+    </div>
+</div>
+{%endblock%}

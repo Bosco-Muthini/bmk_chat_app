@@ -1,0 +1,54 @@
+{% extends 'landing/base.html'%}
+{%block content%}
+<button class="bg-primary ">
+<a class="text-black" href="{%url 'post_order' %}">
+    Back 
+    <i class="bi bi-reply-fill"></i>
+</a>
+</button>
+<div class="row justify-content-center mt-3">
+    <div class="col-md-5 col-sm-12 border-bottom">
+        {%if request.user == post.author%}
+        <a href="{%url 'his_edit' post.pk %}"><i style="color: black;" class="bi bi-pencil-square"></i></a>
+        <a href="{%url 'his_delete' post.pk %}"><i style="color: red;" class="bi bi-trash"></i></a>
+        {%endif%}
+        <p><strong>{{post.author}}</strong> {{post.date_time}}</p>
+        <p>{{post.body}}</p>
+        {%if post.choose_picture%}
+        <img src="{{post.choose_picture.url}}" alt="Post" height="100" width="auto">
+        {%else%}
+            
+        {%endif%}
+    </div>
+</div>
+<div>
+    <form class="" action="" method="POST" enctype="multipart/form-data" >
+        <div class="row justify-content-center mt-3 mb-5 bg-light">
+            <div class="col-md-5 col-sm-12 border-bottom">
+                {%csrf_token%}
+                {{form.as_p}}
+                <div class="d-grid gap-2"> 
+                    <button class="btn btn-success mt-3" type="submit">Comment</button>
+                </div>
+                <br>
+                <a class="btn btn-info ml- " href="{%url 'post_order'%}">Quit</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+    {%for comment in post.comments.all%}
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-5 col-sm-12 border-bottom">
+                <p><strong>{{comment.author}}</strong> {{comment.date_time}} 
+                <i style="color: purple;">{{comment}}</i>
+                {%if request.user == comment.author%}
+                <a href="{%url 'his_comment_delete' post.pk comment.pk%}"><i style="color: red;" class="bi bi-trash"></i></a>
+                {%endif%}
+                </p>
+            </div>
+        </div>
+    {%endfor%}
+</div>
+{%endblock content%}
+

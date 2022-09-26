@@ -1,0 +1,93 @@
+{%extends 'landing/base.html' %}
+{%block content%}
+<div class="row justify-content-center mt-1 ">
+    <div class="col-md-10 col-sm-12 text-center">
+        <marquee class="marquee" behavior="alternate" direction="">
+            <h4 style="font-weight: 1000; color:rgb(252, 245, 245);"><img src="static/photos/FB_IMG_1642141492194.jpg" alt="" height="30" width="auto">Dedicated to Unashamed Charity Group<img src="static/photos/FB_IMG_1642141492194.jpg" alt="" height="30" width="auto"></h4>
+        </marquee>
+    <strong class="glow-add"> 
+        <img src="static/photos/FB_IMG_1642141492194.jpg" alt="" height="60" width="auto">
+      
+        Upcoming Events CountDown 
+        <img src="static/photos/FB_IMG_1642141492194.jpg" alt="" height="60" width="auto">
+    
+    </strong>
+        <div class="glow"  id="timer" ></div>
+        <marquee class="marquee" behavior="" direction="">
+            <img height="220" width="auto" src="static/photos/umbrella/unashamedattending.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/irihose.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/chris.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/me.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/carol.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/bosco.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/lilyk.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/mercy.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/sarmoh.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/troven.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/david.jpg" alt="">   
+            <img height="220" width="auto" src="static/photos/umbrella/dennis.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/godfrey.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/judy.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/IMG-20220915-WA0021.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/IMG-20220915-WA0022.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/IMG-20220915-WA0026.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/IMG-20220916-WA0018.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/dennis.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/rahab.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/sirdan.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/David Irihose 20220915_223311.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/David Irihose 20220921_133441.jpg alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/favor.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/hacker.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/joyce.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/norah.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/vincent.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/umbrella/IMG-20220922-WA0004.jpg" alt="">
+            <img height="220" width="auto" src="static/photos/IMG-20220831-WA0007.jpg" alt="">
+       
+    </marquee>
+    </div>
+</div>
+<script>
+    function updateTimer() {
+        future = Date.parse("Oct 1, 2022 00:00:00");
+        now = new Date();
+        diff = future - now;
+    
+        days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        hours = Math.floor(diff / (1000 * 60 * 60));
+        mins = Math.floor(diff / (1000 * 60));
+        secs = Math.floor(diff / 1000);
+    
+        d = days;
+        h = hours - days * 24;
+        m = mins - hours * 60;
+        s = secs - mins * 60;
+    
+    
+        document.getElementById("timer").innerHTML = 
+        "<div> Rongo</div>" +
+
+        "<div>" +
+        d +
+        "<span>days</span></div>" +
+        "<div>" +
+        h +
+        "<span>hours</span></div>" +
+        "<div>" +
+        m +
+        "<span>minutes</span></div>" +
+        "<div>" +
+        s +
+        "<span>seconds</span></div>" +
+
+        "<div>Color Fest</div>" ;
+        if (diff < 0){
+            clearInterval(updateTimer);
+            document.getElementById("timer").innerHTML="Color Fest It's  TODAY ";
+        }
+
+    }
+    setInterval("updateTimer()", 1000);
+</script>
+{%endblock content%}

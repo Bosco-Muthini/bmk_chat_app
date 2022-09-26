@@ -1,0 +1,35 @@
+{% extends 'landing/base.html' %}
+
+{% block content %}
+<a href="{% url 'inbox' %}" class="btn btn-light">Back To Inbox</a>
+<div class="row justify-content-center mt-3 ">
+    <div class="col-md-5 col-sm-12 border-bottom border-success border-5 bg-light">  
+
+        <div class="row">
+            <div class="col-md-12 p-5">
+                <h3>Start a Conversation</h3>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-3 mb-5">
+            <div class="col-md-5 col-sm-12 ">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            {{message}}
+                        </div>
+                    {%endfor%}
+                {%endif%}    
+                <form action="" method="post">
+                    {%csrf_token%}
+                    <p class="bg-info">Enter User's Name To Chat With</p>
+                    {{form.as_p}}
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success mt-3" type="submit">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>    
+
+{% endblock content %}

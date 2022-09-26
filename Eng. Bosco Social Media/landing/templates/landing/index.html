@@ -1,0 +1,29 @@
+{%extends 'landing/base.html'%}
+
+{%block content%}
+<button class="btn btn-light"><a class="post-link" href="{% url 'flash_page' %}">Loader</a></button>
+<button class="btn btn-info "><a class="post-link text-white" href="{% url 'events_page' %}">Events</a></button>
+<marquee class="marquee" behavior="alternate" direction="">
+    <h4 style="font-weight: 1000; color:rgb(252, 245, 245);">Dedicated to Unashamed Charity Group</h4>
+</marquee>
+<div>
+    <h1 class="glow">Unashamed Of The Gospel</h1>
+</div>
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-10 col-sm-12 text-center">
+                <h1 class="display-2">Where Future Of Unashamed Lives. Our Kindness Someones Hope Unashamed Members</h1>
+                <p class="mt-3 lead">Follow people who interest you, stay up to date on the latest news and join conversations with your friends</p>
+                <div class="d-flex justify-content-center mt-5">
+                    <a href="{% url 'post_list' %}" class="btn btn-light mr-2">View Posts</a>
+                    <a href="{% url 'account_login' %}" class="btn btn-light mr-2">Login</a>
+                    <a href="{% url 'account_signup' %}" class="btn btn-dark">Register</a>
+                    <a href="{%url 'post_order' %}">View Posts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{%endblock content%}
